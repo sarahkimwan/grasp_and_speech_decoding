@@ -1,7 +1,9 @@
-%% compute and plot venn diagram for speech - figure S2
+%% compute and plot data for Venn diagram - figure S2
 
-%% Important: run code while being in folder 'grasp_and_speech_decoding' (and not in code!)
+%% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
@@ -53,11 +55,10 @@ for n_task = 1:number_tasks
         labels_per_session = labels(idx_current_session);
         time_phase_labels = Go_data.time_phase_labels(idx_current_session);
            
-        %Select which time bins are selected to keep in the analysis 
+        %Select which time bins to keep in the analysis 
         flagSelectTimeBins = true; 
         
         if flagSelectTimeBins 
-            time_phase_labels_adapted = time_phase_labels;
             time_phase_labels_adapted = [1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;1;0;0;0;0;0;...
                             2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;2;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;...
                             0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;0;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;3;...
@@ -74,7 +75,6 @@ for n_task = 1:number_tasks
           tuned_channels_per_phase_all{n_task,n_session} = tuned_units_per_phase;      
     end
 end
-
 
 
 %% plot figures S2 (Venn diagrams)

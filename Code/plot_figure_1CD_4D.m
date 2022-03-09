@@ -1,11 +1,14 @@
 %% plot percentage of tuned units per 50ms bins for motor imagery (SMG, PMV and S1 - figure 1C/D) and speech (SMG  - Figure 4D)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
 
+%%
 % parameters
 phase_names = {'ITI', 'Cue', 'Delay', 'Action'};
 number_phases = length(phase_names); 

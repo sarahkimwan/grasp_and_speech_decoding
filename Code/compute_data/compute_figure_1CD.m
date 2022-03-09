@@ -1,20 +1,21 @@
 %% compute tuning in 50ms time bins for motor imagery (figure 1C,D)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
 
 %% changeable parameters
 
-
 flagGoData = true; 
 %if true  - computes tuning for Go trials 
 %if false - computes tuning for NoGo trials - only exists for motor imagery data, not for spoken data
 flag50msTuning = true; 
 %if true - computes tuning in 50ms time bins
-%if false - only computes tuning for average firing rate per phase
+%if false - only computes tuning for average firing rate per task phase
 
 flagSaveData = false; 
 %if true - saves the data in save folder 
@@ -96,7 +97,7 @@ end
 % calculate number of total units 
 num_channels = cell2mat(cellfun(@(x) size(x,1),tuned_channels_per_phase_all, 'UniformOutput', false));
 num_channels_total = sum(num_channels');
-%calculate percentage of tuned units
+% calculate percentage of tuned units
 data1 = sum(cell2mat(sum_bin_all(1,:)'))/sum(num_channels(1,:))*100;
 data2 = sum(cell2mat(sum_bin_all(2,:)'))/sum(num_channels(2,:))*100;
 data3 = sum(cell2mat(sum_bin_all(3,:)'))/sum(num_channels(3,:))*100;

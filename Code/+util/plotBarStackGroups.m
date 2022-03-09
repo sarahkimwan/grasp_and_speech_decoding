@@ -7,7 +7,7 @@ function [] = plotBarStackGroups(stackData, groupLabels,colors)
 %%
 %% Copyright 2011 Evan Bollig (bollig at scs DOT fsu ANOTHERDOT edu
 %%
-%% adapted by Sarah K.Wandelt for own code
+%% adapted by Sarah K Wandelt for this manuscript
 
 
 NumGroupsPerAxis = size(stackData, 1);

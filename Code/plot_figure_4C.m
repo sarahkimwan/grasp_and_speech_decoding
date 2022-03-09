@@ -1,7 +1,9 @@
 %% plot figure 4C of the manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
@@ -30,7 +32,7 @@ for n_reg = 1:number_regions
     for n__task = 1:number_tasks
         %load data
         data = load([SavedData [unit_regions{n_reg} '_' speech_cues{n__task} '_Error']]);
-        Shuffle = load([SavedData [unit_regions{n_reg} '_' speech_cues{n__task} '_ErrorShuffle']]);
+        shuffle = load([SavedData [unit_regions{n_reg} '_' speech_cues{n__task} '_ErrorShuffle']]);
         
         %preallocate variables
         keep_mean_acc = zeros(number_phases,number_sessions);
@@ -41,7 +43,7 @@ for n_reg = 1:number_regions
 
             err_test = squeeze(data.errTest(:,:,n_phase,:));
             acc = (1 - err_test)*100;
-            testing_err_shuffle = squeeze(Shuffle.errTest(:,:,n_phase,:));
+            testing_err_shuffle = squeeze(shuffle.errTest(:,:,n_phase,:));
             mean_acc = mean(acc);
 
             acc_shuffle = (1 - squeeze(mean(mean(testing_err_shuffle)))')*100;
@@ -66,9 +68,9 @@ for n_reg = 1:number_regions
         keep_sig_matrix{n_reg,n__task} = sig_matrix;
     end
 end 
- %% plot figure 4C
+%% plot figure 4C
 phase_to_compute = 4; 
-%extract data for selected phase
+% xtract data for selected phase
 data_mean_phase = cell2mat(cellfun(@(x) mean(x(phase_to_compute,:)), keep_means, 'UniformOutput', false));
 data_phase = cellfun(@(x) x(phase_to_compute,:), keep_means, 'UniformOutput', false);
 data_shuffle_phase = cellfun(@(x) x(phase_to_compute,:), keep_shuffled_means, 'UniformOutput', false);
@@ -82,7 +84,7 @@ color_brain_regions = util.get_color_rgb_codes(unit_regions);
 colors_all = {'blue', 'green', 'magenta'};
 title_names = {'Motor Imagery', 'Spoken Grasp', 'Spoken Colors'};
 
-% plot figure
+%plot figure
 fig = figure('units','normalized','outerposition',[0 0 0.3 0.4]);
 distances = [1,2,3];
  
@@ -104,8 +106,8 @@ distances = [1,2,3];
     end 
     
     hold on
-    ErrCi = cell2mat(err_ci_phase(:,n_reg_2)');
-    er = errorbar(1:3, data_mean_phase(:,n_reg_2),ErrCi(1,:),ErrCi(2,:));
+    err_ci = cell2mat(err_ci_phase(:,n_reg_2)');
+    er = errorbar(1:3, data_mean_phase(:,n_reg_2),err_ci(1,:),err_ci(2,:));
     er.Color = [0 0 0];                            
     er.LineStyle = 'none';  
     ylim([0 110]);

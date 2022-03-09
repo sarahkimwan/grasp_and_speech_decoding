@@ -1,7 +1,9 @@
 %% compute tuning per analysis cue and actiion phase window (figure 1EF)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all

@@ -1,7 +1,9 @@
 %% compute tuning in 50ms time bins for speaking data (figure 4D)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all

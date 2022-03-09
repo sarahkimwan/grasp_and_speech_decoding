@@ -1,7 +1,7 @@
 function [colors] = get_color_rgb_codes(imagename)
 colors = cell(1, length(imagename));
 
-%Input the labels of what you want to plot, the correct color will be
+%input the labels of what you want to plot, the correct color will be
 %output. E.g. labels of different graps, or different phases. 
 for i =1:length(imagename)
     
@@ -19,9 +19,6 @@ for i =1:length(imagename)
     elseif strcmp('Sphere3Finger',  imagename{i}) ==1 
         colors{i} = [220, 38, 127]/255;
 
-    elseif strcmp('redballoon',  imagename{i}) ==1 
-        colors{i} = util.rgb('Silver');    
-        
     elseif strcmp('Lateral No Go',  imagename{i}) ==1 
         colors{i} = util.rgb('Tomato');
         
@@ -64,78 +61,46 @@ for i =1:length(imagename)
     elseif strcmp('Both',  imagename{i}) ==1 
         colors{i} = util.rgb('LightSlateGray');       
     elseif strcmp('PMV',  imagename{i}) ==1 
-        colors{i} = [0 1 0];%util.rgb('Green');
+        colors{i} = [0 1 0];
         
     elseif strcmp('SMG',  imagename{i}) ==1 
-        colors{i} = [0 0 1]; %util.rgb('Blue'); 
+        colors{i} = [0 0 1]; 
     elseif strcmp('S1X',  imagename{i}) ==1 
         colors{i} = util.rgb('Magenta'); 
-    elseif strcmp('SMG&PMV',  imagename{i}) ==1 
-        colors{i} = util.rgb('Purple');      
-    elseif strcmp('V',  imagename{i}) ==1 
-        colors{i} = util.rgb('LightSlateGray');       
-    elseif strcmp('S',  imagename{i}) 
-        colors{i} = util.rgb('LightSteelBlue');
-           
-
+    
     elseif  strcmp('ITI',  imagename{i}) ==1 
         colors{i} = util.rgb('Silver');    
         
     elseif  strcmp('Delay',  imagename{i}) ==1 
         colors{i} = util.rgb('Cyan'); 
         
-     elseif  strcmp('Tuned',  imagename{i}) ==1 
-        colors{i} = util.rgb('Green'); 
-        
-     elseif  strcmp('Non-tuned',  imagename{i}) ==1 
-        colors{i} = util.rgb('DarkGrey'); 
-        
-     elseif  strcmp('Removed',  imagename{i}) ==1 
-        colors{i} = util.rgb('DarkRed'); 
-        
-     elseif  strcmp('Group Mean',  imagename{i}) ==1 
-        colors{i} = util.rgb('Black'); 
-        
-     elseif  strcmp('MotorImageryLeft',  imagename{i}) ==1 
-        colors{i} = util.rgb('Fire'); 
-        
-    elseif  strcmp('MotorImageryRight',  imagename{i}) ==1 
-        colors{i} = util.rgb('Green'); 
-        
-     elseif  strcmp('MotorImagery',  imagename{i}) ==1 
+    elseif  strcmp('MotorImagery',  imagename{i}) ==1 
         colors{i} = util.rgb('Green'); 
     
-  
     elseif  strcmp('Speaking',  imagename{i}) 
         colors{i} = util.rgb('Blue'); 
         
-     elseif  strcmp('Audio',  imagename{i}) 
-        colors{i} = util.rgb('SeaGreen'); 
-        
-     elseif  strcmp('Go Trial',  imagename{i}) 
+    elseif  strcmp('Go Trial',  imagename{i}) 
         colors{i} = util.rgb('Green'); 
         
-     elseif  strcmp('No Go Trial',  imagename{i}) 
+    elseif  strcmp('No Go Trial',  imagename{i}) 
         colors{i} = util.rgb('Red'); 
         
-     elseif  strcmp('Blue',  imagename{i}) 
+    elseif  strcmp('Blue',  imagename{i}) 
         colors{i} = util.rgb('Blue'); 
         
-     elseif  strcmp('Green',  imagename{i}) 
+    elseif  strcmp('Green',  imagename{i}) 
         colors{i} = util.rgb('Green'); 
         
-     elseif  strcmp('Yellow',  imagename{i}) 
+    elseif  strcmp('Yellow',  imagename{i}) 
         colors{i} = util.rgb('Fire'); 
-        
-    
-     elseif  strcmp('Brown',  imagename{i}) 
+      
+    elseif  strcmp('Brown',  imagename{i}) 
         colors{i} = util.rgb('Brown'); 
-        
-    
+          
      elseif  strcmp('Gray',  imagename{i}) 
         colors{i} = util.rgb('SlateGray'); 
-        
-    
+         
      elseif  strcmp('Grasps',  imagename{i}) 
         colors{i} = util.rgb('Blue'); 
         
@@ -148,23 +113,8 @@ for i =1:length(imagename)
      elseif strcmp('ImageCue', imagename{i})
          colors{i} = util.rgb('Green');
          
-     elseif strcmp('AuditoryCue', imagename{i})
-         colors{i} = util.rgb('Blue');
-         
-      elseif strcmp('WrittenCue', imagename{i})
-         colors{i} = util.rgb('Fire');
-         
       elseif strcmp('Image', imagename{i})
          colors{i} = util.rgb('Green');
-         
-     elseif strcmp('Auditory', imagename{i})
-         colors{i} = util.rgb('Blue');
-         
-      elseif strcmp('Written', imagename{i})
-         colors{i} = util.rgb('Fire');
-         
-      elseif strcmp('BothCues', imagename{i})
-         colors{i} = util.rgb('Cyan');
          
      elseif strcmp('Training', imagename{i})
      colors{i} = util.rgb('Green');
@@ -172,19 +122,6 @@ for i =1:length(imagename)
      elseif strcmp('Testing', imagename{i})
      colors{i} = util.rgb('Blue');
      
-    elseif strcmp('Visuomotor', imagename{i}) 
-        colors{i} = util.rgb('LightSlateGray');       
-        
-     elseif strcmp('Action&Cue', imagename{i}) 
-        colors{i} = util.rgb('LightSlateGray');       
-        
-    elseif strcmp('Switching', imagename{i})
-        colors{i} = util.rgb('LightSteelBlue');
-        
-       
-     elseif strcmp('Plan', imagename{i})
-        colors{i} = util.rgb('LightSteelBlue');
-        
      elseif strcmp('Motor Imagery', imagename{i}) 
         colors{i} = [0 0 1];      
         

@@ -1,3 +1,2 @@
-Scripts in this folder generate the data to plot the figures of the mauscript 
-The data is already pre-saved in the folder "Data" - neural files are not included in this repository.  
-The neural files can be requested at skwandelt@caltech.edu
+Scripts in this folder generate the data to plot the figures of the manuscript. 
+Neural files are not provided - they can be requested at skwandelt@caltech.edu.

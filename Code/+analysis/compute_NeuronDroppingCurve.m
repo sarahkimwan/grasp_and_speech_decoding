@@ -1,4 +1,4 @@
-% Cross phase classification + neuron dropping curve 
+% cross phase classification + neuron dropping curve 
 
 function [result,cue_names] = compute_NeuronDroppingCurve(unit_region,TrainingPhase,TableName, GroupNames)
 
@@ -66,10 +66,7 @@ for testing_phase  = [2 4]
     data_phase = cell2mat(cellfun(@(x) nanmean(x(phase_idx_to_test,:)), data_all,'UniformOutput', false))';
     data_per_phase_all{n} = data_phase;
 end
-
-
-%%%% CHOOSE HERE %%%%%
-
+%chose phase data to compute
 if strcmp(TrainingPhase, 'Cue')
     data1_phase = data_per_phase_all{1}; %Cue Phase Data
 elseif strcmp(TrainingPhase, 'Action')
@@ -135,7 +132,7 @@ parfor rep = 1:num_of_iterations
                      [coeff] = pca(DataTraining);                      
                       n_PC_max = n_PC;
                       
-                      %If the number of PC is bigger than the number of
+                      %if the number of PC is bigger than the number of
                       %features, we keep all the features 
                       if n_PC_max < size(DataTraining,2) && n_PC_max < size(coeff,2)
                         %apply coefficients on train and testing data

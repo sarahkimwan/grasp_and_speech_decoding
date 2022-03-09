@@ -1,14 +1,16 @@
 %% plot cross-task classification figure 4E of manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all
 close all
 
 SavedData = [pwd '\Data\CrossModalityClassification\'];
 %load Leave-One-Out results from Cross Modality Classification
-data = load([SavedData 'RealData']);
+Data = load([SavedData 'RealData']);
 %load Leave-One-Out shuffled results (1000x) from Cross Modality Classification
 Shuffle = load([SavedData 'ShuffledData']);
 
@@ -32,20 +34,20 @@ for n_mod = 1:length(task_names)
     
     %predeclare temporary variable
     prc_outcome = nan(number_tasks, number_tasks, number_phases);
-    task_names_per_classification = data.DataNamesAll{n_mod}{1};
+    task_names_per_classification = Data.DataNamesAll{n_mod}{1};
     
-    %Real data
-    data_err_tmp = data.errorsAll{n_mod};
-    %Shuffled Data
+    %real data
+    data_err_tmp = Data.errorsAll{n_mod};
+    %shuffled data
     shuffle_err_tmp = Shuffle.errorsAll(:,n_mod);
    
-    %Calculate error over leave-one-out folds 
+    %calculate error over leave-one-out folds 
     data_mean_per_session = cellfun(@(x) 1 -squeeze(mean(x,2)), data_err_tmp, 'UniformOutput', false);
-    %Calculate mean error over all sessions
+    %calculate mean error over all sessions
     data_mean_all_sessions = cell2mat(cellfun(@(x) mean(x,1), data_mean_per_session,'UniformOutput', false)');   
     shuffle_err = cell(1,number_tasks);
     
-    %Compute percentile value for each task and each percentile Value
+    %compute percentile value for each task and each percentile value
     for n_tasks = 1:length(task_names_per_classification)        
         shuffle_err{n_tasks} = cell2mat(cellfun(@(x) 1 -squeeze(mean(x{n_tasks},2)), shuffle_err_tmp, 'UniformOutput', false));             
         for n_prc = 1:length(prc_tests)
@@ -60,16 +62,16 @@ for n_mod = 1:length(task_names)
     prc_out_all{n_mod} = prc_outcome;
 end 
 
-%%
+%% plot figure
 
 figure();
-PhaseNames = {'ITI', 'Cue', 'Delay', 'Action'};
+phase_names = {'ITI', 'Cue', 'Delay', 'Action'};
 
 for n_modality = 1:length(task_names)
    
-x = 1:length(PhaseNames);
+x = 1:length(phase_names);
 
-labels_per_task = data.DataNamesAll{n_modality}{1};
+labels_per_task = Data.DataNamesAll{n_modality}{1};
 
 colors_per_task = util.get_color_rgb_codes(labels_per_task);
 
@@ -95,18 +97,18 @@ a = cell(1,number_tasks);
         a{err}= errorbar(1:number_phases, mean(err_test1,1), err_ci(1,:), err_ci(2,:),'-s','Marker', 's', 'LineStyle', '-','MarkerSize',10,'Color', colors_per_task{err},'LineWidth',1);
         hold on
         if err == 1
-            yData = max(err_test1);
+            y_data = max(err_test1);
         end 
         %plot significance 
-        SigVals = squeeze(prc_out_all{n_modality}(err,:,:));
-        for n_p = 1:length(PhaseNames)
-           SigValsPerPhase = SigVals(:,n_p);
-            if SigValsPerPhase(3)
-                text(n_p - 0.3,yData(n_p) + 10 - 2*err , '***', 'Color', colors_per_task{err}, 'FontSize', 15); 
-            elseif SigValsPerPhase(2)
-                text(n_p - 0.2,yData(n_p) + 10 - 2*err , '**', 'Color', colors_per_task{err}, 'FontSize', 15); 
-            elseif SigValsPerPhase(1)
-                text(n_p - 0.1,yData(n_p) + 10 - 2*err , '*', 'Color', colors_per_task{err}, 'FontSize', 15); 
+        sig_values = squeeze(prc_out_all{n_modality}(err,:,:));
+        for n_p = 1:length(phase_names)
+           sig_val_per_phase = sig_values(:,n_p);
+            if sig_val_per_phase(3)
+                text(n_p - 0.3,y_data(n_p) + 10 - 2*err , '***', 'Color', colors_per_task{err}, 'FontSize', 15); 
+            elseif sig_val_per_phase(2)
+                text(n_p - 0.2,y_data(n_p) + 10 - 2*err , '**', 'Color', colors_per_task{err}, 'FontSize', 15); 
+            elseif sig_val_per_phase(1)
+                text(n_p - 0.1,y_data(n_p) + 10 - 2*err , '*', 'Color', colors_per_task{err}, 'FontSize', 15); 
             end 
 
         end 
@@ -123,8 +125,8 @@ a = cell(1,number_tasks);
     set(gca,'FontSize', 12)
     ylim([0 110])
     xlim([0.5, 4.5])
-    xticks(1:length(PhaseNames));
-    xticklabels(PhaseNames);
+    xticks(1:length(phase_names));
+    xticklabels(phase_names);
     xtickangle(-45)
     if n_modality == 1
         ylabel('Classification accuracy')

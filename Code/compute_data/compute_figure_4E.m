@@ -1,7 +1,9 @@
 %% compute data for cross-task classiifcation (figure 4E)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all

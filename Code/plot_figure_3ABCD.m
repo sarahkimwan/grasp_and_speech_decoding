@@ -2,12 +2,14 @@
 %% plot figure 3 of the manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
 
-%% Variables
+%% variables
 %saved data folder
 SavedData = [pwd '\Data\CrossPhaseNeuronDropping\MotorImagery\'];
 
@@ -98,7 +100,7 @@ for n_phase = 1:length(fig_titles)
     %plot results for the first 146 units (total number of PMV units)
     acc1 = accuracy1_all{1,n_phase}(:,1:146);
     acc2 = accuracy1_all{2,n_phase};
-    Acc3 = accuracy1_all{3,n_phase}(:,1:146);
+    acc3 = accuracy1_all{3,n_phase}(:,1:146);
 
     CI1 = CI_all{1, n_phase}(:,1:146);
     C12 = CI_all{2,n_phase};
@@ -113,7 +115,7 @@ for n_phase = 1:length(fig_titles)
     'MarkerEdgeColor',brain_region_colors{2},'MarkerFaceColor',brain_region_colors{2} , 'Color', brain_region_colors{2});
 
     hold on 
-    b3 = errorbar(1:size(Acc3,2), mean(Acc3), C13(1,:), C13(2,:),'-s', 'LineStyle', '-','MarkerSize',5,...
+    b3 = errorbar(1:size(acc3,2), mean(acc3), C13(1,:), C13(2,:),'-s', 'LineStyle', '-','MarkerSize',5,...
     'MarkerEdgeColor',brain_region_colors{3},'MarkerFaceColor',brain_region_colors{3} , 'Color', brain_region_colors{3}); 
 
     %figure parameters

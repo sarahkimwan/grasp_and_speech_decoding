@@ -1,10 +1,14 @@
 %% Compute and plot PCR projections (figure S2 C)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
+
+%%
 clc
 clear all
 close all
 
+%%
 %load motor imagery data
 motor_imagery = load(fullfile(pwd, 'Data\NeuralData\PCA_plot','Table_sorting_aligned_thr_-4.5_MotorImagery.mat'));
 
@@ -49,9 +53,9 @@ for n_phase = data_phase
     %project data onto coefficients
     pca_data = data_per_cue*coeff; 
 
-    Labels = reshape(repmat([1:5],8,1), [],1);
+    labels = reshape(repmat([1:5],8,1), [],1);
     %plot projection of first 2 principal components 
-    gscatter(pca_data(:,1), pca_data(:,2),Labels, colors_grasps)
+    gscatter(pca_data(:,1), pca_data(:,2),labels, colors_grasps)
     xlabel('PCA1');
     ylabel('PCA2');
     %figure settings
@@ -98,11 +102,11 @@ for n_task = 1:length(data_tasks)
         colors_grasps = cell2mat(util.get_color_rgb_codes(graspNames)');
         pca_data = data_per_cue*coeff; 
 
-        Labels = reshape(repmat([1:5],8,1), [],1);
+        labels = reshape(repmat([1:5],8,1), [],1);
         %plot projection of first 2 principal components 
-        gscatter(pca_data(:,1), pca_data(:,2),Labels, colors_grasps)
+        gscatter(pca_data(:,1), pca_data(:,2),labels, colors_grasps)
         %figure settings
-         set(gca, 'fontsize', 15,'XTick',[],'Ytick', [] )
+        set(gca, 'fontsize', 15,'XTick',[],'Ytick', [] )
         title([data_tasks{n_task} '  N = 252'])
         xlabel('PCA1');
         ylabel('PCA2');

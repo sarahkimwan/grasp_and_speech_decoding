@@ -1,6 +1,9 @@
 %% plot figure S3 of the manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
+
+%%
 clc
 clear all
 close all
@@ -14,7 +17,6 @@ flagGraspSpeaking = false;
 SavedData = [pwd '\Data\CrossPhaseNeuronDropping\Speech\'];
 
 %%
-training_cues = {'Cue', 'Action'};
 unit_region = 'SMG';
 %load data
 if flagGraspSpeaking
@@ -22,6 +24,8 @@ if flagGraspSpeaking
 else
     load(fullfile(SavedData, 's2_SMG_PC_20_ColorSpeaking.mat'))
 end 
+
+training_cues = {'Cue', 'Action'}; %plot data for cue and action phase
 
 figure()
 %plot figure

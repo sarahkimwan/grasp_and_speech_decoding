@@ -1,7 +1,9 @@
 %% plot figure 2 of the manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all 
 close all
@@ -15,7 +17,6 @@ flagGoData = true;
 SavedData = [pwd '\Data\ClassificationMotorImagery\'];
 
 %% load data
-
 if flagGoData
     %Go data
     SMG = load([SavedData 'SMG_Error.mat']);
@@ -43,7 +44,7 @@ end
 number_phases = 4;
 marker_size = 5;
 
-%Mean classification accuracy values 
+%mean classification accuracy values 
 SMG.keepMeanAcc =  (1-squeeze(mean(squeeze(SMG.errTest),1)))*100;
 %remove PMV and S1 sessions that have no data 
 PMV.keepSessionIdxToRemove = [5,6,7];
@@ -53,7 +54,7 @@ S1.keepSessionIdxToRemove = [1,3];
 S1ToKeep = setdiff(1:SMG.number_sessions,S1.keepSessionIdxToRemove);
 S1.keepMeanAcc = (1-squeeze(mean(squeeze(S1.errTest(:,:,:,S1ToKeep)),1)))*100;
     
-%Mean shuffled labels classification accuracy values
+%mean shuffled labels classification accuracy values
 SMG_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(SMG_shuffle.errTest(:,:,:,:),1)),1)))*100;
 PMV_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(PMV_shuffle.errTest(:,:,:,PMVToKeep),1)),1)))*100;
 S1_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(S1_shuffle.errTest(:,:,:,S1ToKeep),1)),1)))*100;
@@ -77,7 +78,7 @@ plot([1; 2; 3; 4;], mean(SMG_mean_acc_shuffle,2), 'Marker','.', 'MarkerSize', ma
 n_sessions = size(SMG_mean_acc_shuffle,2); 
 text(1 ,98 , ['N = ' num2str(n_sessions)], 'Color', 'black', 'LineWidth', 4,'FontSize', font_size); %, 'Interpretation', 'latex')
   
-%Calculate and plot 95% Confidence interval    
+%calculate and plot 95% Confidence interval    
 err_ci = calculate_err_ci(SMG.keepMeanAcc); 
 errorbar(1:number_phases, mean(SMG.keepMeanAcc,2)', err_ci(1,:), err_ci(2,:),'-s','Marker', marker_style, 'LineStyle', '-','MarkerSize',marker_size,'Color', 'blue',...
     'Color', 'blue','LineWidth',1);
@@ -86,10 +87,9 @@ d1 = plot(mean(SMG.keepMeanAcc,2)','Marker', marker_style, 'MarkerSize',marker_s
 hold on 
 title('SMG', 'FontSize', font_size)
 
-%Calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
+%calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
 shuffle_data_SMG = (1 -reshape((mean(SMG_shuffle.errTest(:,:,:,:),2)), [],number_phases))*100;
 sig_plot(SMG.keepMeanAcc, shuffle_data_SMG);
-
 
 %plot parameters
 figInfo()
@@ -111,7 +111,7 @@ set(gca,'YTickLabel',[]);
 n_sessions = size(PMV_mean_acc_shuffle,2); 
 text(1 ,98 , ['N = ' num2str(n_sessions)], 'Color', 'black', 'LineWidth', 4,'FontSize', font_size); %, 'Interpretation', 'latex')
 
-%Calculate and plot 95% Confidence interval 
+%calculate and plot 95% Confidence interval 
 err_ci = calculate_err_ci(PMV.keepMeanAcc); 
 errorbar(1:number_phases, mean(PMV.keepMeanAcc,2)', err_ci(1,:), err_ci(2,:),'-s','Marker', marker_style, 'LineStyle', '-','MarkerSize',marker_size,'Color', 'blue',...
 'Color', 'green','LineWidth',1);
@@ -120,13 +120,14 @@ hold on
 d2 = plot(mean(PMV.keepMeanAcc,2)','Marker', marker_style, 'MarkerSize', marker_size, 'LineStyle','none', 'Color', 'green','LineWidth',2);
 hold on 
 
-%Calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
+%calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
 shuffle_data_PMV = (1 -reshape((mean(PMV_shuffle.errTest(:,:,:,PMVToKeep),2)), [],number_phases))*100;
 sig_plot(PMV.keepMeanAcc, shuffle_data_PMV);
 
 figInfo();
 
-%S1 data%
+%S1 data
+
 subplot(1,3,3)
 d = plot(repmat([1; 2; 3; 4;], [1, length(S1.keepMeanAcc)]), squeeze(S1.keepMeanAcc), 'Marker', '.', 'MarkerSize', marker_size, 'LineStyle','none', 'Color', 'black');
 hold on
@@ -139,7 +140,7 @@ set(gca,'YTickLabel',[]);
 n_sessions = size(S1_mean_acc_shuffle,2); 
 text(1 ,98 , ['N = ' num2str(n_sessions)], 'Color', 'black', 'LineWidth', 4,'FontSize', font_size); 
 
-%Calculate and plot 95% Confidence interval 
+%calculate and plot 95% Confidence interval 
 err_ci = calculate_err_ci(S1.keepMeanAcc); 
 errorbar(1:number_phases, mean(S1.keepMeanAcc,2)', err_ci(1,:), err_ci(2,:),'-s','Marker', 's', 'LineStyle', '--','MarkerSize',5,'Color', 'blue',...
 'Color', 'magenta','LineWidth',1);
@@ -148,7 +149,7 @@ hold on
 d3 = plot(mean(S1.keepMeanAcc,2)','Marker', 's', 'MarkerSize', 5, 'LineStyle','none', 'Color', 'magenta','LineWidth',2);
 hold on 
 
-%Calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
+%calculate percentile of shuffled dataset and compare them to averaged classification accuracy 
 shuffle_data_S1 = (1 -reshape((mean(S1_shuffle.errTest(:,:,:,S1ToKeep),2)), [],number_phases))*100;
 sig_plot(S1.keepMeanAcc, shuffle_data_S1);
 
@@ -169,40 +170,6 @@ PMV_test_labels  = squeeze(PMV.keepTestingLabels);
 PMV_predicted_labels  = squeeze(PMV.keepPredictedLabels);
 plot_error_matrix(PMV_test_labels, PMV_predicted_labels, 'PMV', title_add);
 
-%% 
-%there is no significant difference in classification accuracy
-%between Go trials from only Go blocks, or from Go trials from GoNoGo
-%blocks.
-
-GoNoGo_sessions = SMG.Sessions(1:9);
-Go_sessions = SMG.Sessions(10:end);
-
-GoNoGo_means = SMG.keepMeanAcc(:,1:9);
-Go_means = SMG.keepMeanAcc(:,10:end);
-
-[SMG_hC,SMG_pC] = ttest2(GoNoGo_means(2,:),Go_means(2,:));
-[SMG_hD,SMG_pD] = ttest2(GoNoGo_means(3,:),Go_means(3,:));
-[SMG_hA,SMG_pA]= ttest2(GoNoGo_means(4,:),Go_means(4,:));
-
-PMV_NoGo_idx = ismember(PMV.Sessions(PMVToKeep),GoNoGo_sessions);
-PMV_Go_idx = ismember(PMV.Sessions(PMVToKeep),Go_sessions);
-
-PMV_NoGo = PMV.keepMeanAcc(:,PMV_NoGo_idx);
-PMV_Go = PMV.keepMeanAcc(:,PMV_Go_idx);
-
-[PMV_hC,PMV_pC] = ttest(PMV_NoGo(2,:),PMV_Go(2,:));
-[PMV_hD,PMV_pD] = ttest(PMV_NoGo(3,:),PMV_Go(3,:));
-[PMV_hA,PMV_pA] = ttest(PMV_NoGo(4,:),PMV_Go(4,:));
-
-S1_NoGo_idx = ismember(S1.Sessions(S1ToKeep), GoNoGo_sessions);
-S1_Go_idx = ismember(S1.Sessions(S1ToKeep), Go_sessions);
-
-S1_NoGo = S1.keepMeanAcc(:,S1_NoGo_idx);
-S1_Go = S1.keepMeanAcc(:,S1_Go_idx);
-
-[S1_hC,S1_pC] = ttest2(S1_NoGo(2,:),S1_Go(2,:));
-[S1_hD,S1_pD] = ttest2(S1_NoGo(3,:),S1_Go(3,:));
-[S1_hA,S1_pA] = ttest2(S1_NoGo(4,:),S1_Go(4,:));
 
 %% functions 
 

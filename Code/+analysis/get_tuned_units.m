@@ -22,7 +22,7 @@ condition_names = ['ITI',graspNames];
 condition = repmat(condition_names, [fixed_trial_number,1]);
 condition = reshape(condition, [fixed_trial_number*(number_grasps+1),1]);
 
-%Presence vector X
+%presence vector X
 for i = 1:number_grasps
     X(:,i) = ismember(condition, graspNames{i});
 end
@@ -85,7 +85,6 @@ nbr_tuned_units_per_grasp_bin = sum(tuned_units_per_bin,3);
 
 sum_bin = sum(logical(squeeze(sum(tuned_units_per_bin,2))),2); 
 tuned_combined_units = logical(sum(tuned_units_per_phase,2));    
-
 
 end
 

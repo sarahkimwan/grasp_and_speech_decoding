@@ -1,7 +1,9 @@
 %% plot figure 1 E,F, supplemetary figure 1 A,B
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
+addpath(genpath(pwd)); %add folder to search path 
 
+%%
 clc
 clear all
 close all
@@ -9,8 +11,8 @@ close all
 %% changeable parameters
 
 flagGoData = true; 
-%if true  - computes tuning for Go trials 
-%if false - computes tuning for NoGo trials - only exists for motor imagery data, not for spoken data
+%if true  - computes figures for Go trials 
+%if false - computes figures for NoGo trials 
 
 phases_to_compute = [1,2,4];
 % determines which task phases are plotted
