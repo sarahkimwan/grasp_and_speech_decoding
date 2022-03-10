@@ -54,7 +54,7 @@ S1.keepSessionIdxToRemove = [1,3];
 S1ToKeep = setdiff(1:SMG.number_sessions,S1.keepSessionIdxToRemove);
 S1.keepMeanAcc = (1-squeeze(mean(squeeze(S1.errTest(:,:,:,S1ToKeep)),1)))*100;
     
-%mean shuffled labels classification accuracy values
+%mean classification accuracy values for shuffled labels data
 SMG_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(SMG_shuffle.errTest(:,:,:,:),1)),1)))*100;
 PMV_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(PMV_shuffle.errTest(:,:,:,PMVToKeep),1)),1)))*100;
 S1_mean_acc_shuffle = (1-squeeze(mean(squeeze(mean(S1_shuffle.errTest(:,:,:,S1ToKeep),1)),1)))*100;
@@ -67,7 +67,7 @@ marker_size = 5;
 
 %SMG data 
 
-%plot individual session days classification and average classification
+%plot individual session day classification and average classification
 subplot(1,3,1)
 plot(repmat([1; 2; 3; 4;], [1, length(SMG.keepMeanAcc)]), squeeze(SMG.keepMeanAcc), 'Marker', '.', 'MarkerSize', marker_size, 'LineStyle','none', 'Color', 'black');
 hold on
@@ -98,7 +98,7 @@ yticks([0:20:100])
 
 %PMV data
 
-%plot individual session days classification and average classification
+%plot individual session day classification and average classification
 subplot(1,3,2)
 plot(repmat([1; 2; 3; 4;], [1, length(PMV.keepMeanAcc)]), squeeze(PMV.keepMeanAcc), 'Marker','.', 'MarkerSize', marker_size, 'LineStyle','none', 'Color', 'black');
 hold on
@@ -111,7 +111,7 @@ set(gca,'YTickLabel',[]);
 n_sessions = size(PMV_mean_acc_shuffle,2); 
 text(1 ,98 , ['N = ' num2str(n_sessions)], 'Color', 'black', 'LineWidth', 4,'FontSize', font_size); %, 'Interpretation', 'latex')
 
-%calculate and plot 95% Confidence interval 
+%calculate and plot 95% confidence interval 
 err_ci = calculate_err_ci(PMV.keepMeanAcc); 
 errorbar(1:number_phases, mean(PMV.keepMeanAcc,2)', err_ci(1,:), err_ci(2,:),'-s','Marker', marker_style, 'LineStyle', '-','MarkerSize',marker_size,'Color', 'blue',...
 'Color', 'green','LineWidth',1);
@@ -128,6 +128,7 @@ figInfo();
 
 %S1 data
 
+%plot individual session day classification and average classification
 subplot(1,3,3)
 d = plot(repmat([1; 2; 3; 4;], [1, length(S1.keepMeanAcc)]), squeeze(S1.keepMeanAcc), 'Marker', '.', 'MarkerSize', marker_size, 'LineStyle','none', 'Color', 'black');
 hold on
@@ -222,10 +223,10 @@ function plot_error_matrix(test_labels, predicted_labels, fig_title, title_add)
 
     number_phases = 4;
     test_labels = reshape(cell2mat(test_labels(number_phases,:)), [],1);
-    PredictLabels = reshape(cell2mat(predicted_labels(number_phases,:)), [],1);
+    predicted_labels = reshape(cell2mat(predicted_labels(number_phases,:)), [],1);
     grasps_to_test = arrayfun(@(x) util.image2class_simple(x), unique(test_labels), 'UniformOutput', false);
     number_grasps = length(grasps_to_test); 
-    c_mat = confusionmat(test_labels, PredictLabels);
+    c_mat = confusionmat(test_labels, predicted_labels);
     number_repetition_per_grasp = unique(histc(test_labels, unique(test_labels)));
     c_mat = c_mat/number_repetition_per_grasp*100;
 

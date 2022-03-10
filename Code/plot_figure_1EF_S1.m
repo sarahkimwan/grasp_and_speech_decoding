@@ -148,9 +148,7 @@ for n_region = 1:number_regions
             text(n_phase_to_compute - 0.05,y_data(n_phase_to_compute) + 7 , '*', 'Color', 'black', 'LineWidth', 2); 
             util.sigline([n_phase_to_compute-0.1625,n_phase_to_compute+0.1625],'', [], y_data(n_phase_to_compute));
         end 
-
     end 
-
 end
 
 legend_name = {'Lateral', 'Shuffle Lateral', 'WritingTripod', 'Shuffle WritingTripod', 'MediumWrap', 'Shuffle MediumWrap', 'PalmarPinch', 'Shuffle PalmarPinch', 'Sphere3Finger', 'Shuffle Sphere3Finger' };
@@ -178,9 +176,10 @@ for n_region = 1:number_regions
         summed_data_per_rep_all_grasps(:,n_rep) = sum(summed_data_per_rep(:,:,n_rep),2);
         end 
     end 
+    
     summed_data = mean(summed_data_per_rep,3);
-
     data_percentage_tmp = zeros(number_phases_to_compute, number_shuffle_repetitions);
+    
     for n_phase = 1:length(phases_to_compute) 
         data_percentage_tmp(n_phase,:) = summed_data_per_rep_all_grasps(n_phase,:)/sum(channel_count(n_region,:))*100';
     end   

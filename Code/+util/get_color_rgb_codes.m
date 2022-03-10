@@ -1,8 +1,7 @@
 function [colors] = get_color_rgb_codes(imagename)
-colors = cell(1, length(imagename));
+%GET_COLOR_RGB_CODES outputs color code for input labels. 
 
-%input the labels of what you want to plot, the correct color will be
-%output. E.g. labels of different graps, or different phases. 
+colors = cell(1, length(imagename));
 for i =1:length(imagename)
     
      if strcmp('Lateral', imagename{i}) ==1 

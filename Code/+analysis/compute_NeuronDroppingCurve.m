@@ -1,6 +1,6 @@
-% cross phase classification + neuron dropping curve 
-
 function [result,cue_names] = compute_NeuronDroppingCurve(unit_region,TrainingPhase,TableName, GroupNames)
+%COMPUTE_NEURONDROPPINGCURVE computes a neuron dropping curve with
+%cross-phase classification for the cue and action phase
 
 %classification parameters
 k = 8; %cross-validation number
@@ -66,6 +66,7 @@ for testing_phase  = [2 4]
     data_phase = cell2mat(cellfun(@(x) nanmean(x(phase_idx_to_test,:)), data_all,'UniformOutput', false))';
     data_per_phase_all{n} = data_phase;
 end
+
 %chose phase data to compute
 if strcmp(TrainingPhase, 'Cue')
     data1_phase = data_per_phase_all{1}; %Cue Phase Data

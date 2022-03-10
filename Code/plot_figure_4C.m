@@ -70,7 +70,7 @@ for n_reg = 1:number_regions
 end 
 %% plot figure 4C
 phase_to_compute = 4; 
-% xtract data for selected phase
+% extract data for selected phase
 data_mean_phase = cell2mat(cellfun(@(x) mean(x(phase_to_compute,:)), keep_means, 'UniformOutput', false));
 data_phase = cellfun(@(x) x(phase_to_compute,:), keep_means, 'UniformOutput', false);
 data_shuffle_phase = cellfun(@(x) x(phase_to_compute,:), keep_shuffled_means, 'UniformOutput', false);

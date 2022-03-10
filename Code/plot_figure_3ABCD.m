@@ -1,4 +1,3 @@
-
 %% plot figure 3 of the manuscript
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'

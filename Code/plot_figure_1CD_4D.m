@@ -1,4 +1,4 @@
-%% plot percentage of tuned units per 50ms bins for motor imagery (SMG, PMV and S1 - figure 1C/D) and speech (SMG  - Figure 4D)
+%% plot percentage of tuned units per 50ms bins for motor imagery (SMG, PMV and S1 - figure 1C/D) and speech (SMG - Figure 4D)
 
 %% Important: run code while being in folder 'grasp_and_speech_decoding'
 addpath(genpath(pwd)); %add folder to search path 
@@ -18,8 +18,7 @@ Fr = 20; %frequency rate of firing rate
 
 for n_f = 1:length(figures_to_plot)
     
-%load data corresponding to figure that is being plotted
-
+    %load data corresponding to figure that is being plotted
     if contains(figures_to_plot{n_f}, '1')
         
         %load Go or NoGo motor imagery data
@@ -76,7 +75,7 @@ for n_f = 1:length(figures_to_plot)
     font_size = 15;
     colors_tasks = util.get_color_rgb_codes(labels);
     y_lim =70;
-    %generate labels including number of units
+    %generate labels adding number of units
     labels2 = arrayfun(@(x) [labels{x} ' (N = ' num2str(total_number_units(x)) ')'], 1:length(total_number_units), 'UniformOutput', false);
 
     %plot each task phase in a different subplot

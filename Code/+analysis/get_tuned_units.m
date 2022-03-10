@@ -1,22 +1,22 @@
 function [tuned_combined_units, tuned_units_per_phase, tuned_units_per_bin, sum_phase, sum_bin,nbr_tuned_units_per_grasp,nbr_tuned_units_per_grasp_bin,p_per_phase, p_per_phase_orig] = get_tuned_units(Data,Labels, TimePhaseLabels, flag50msTuning)
 
+%GET_TUNED_UNITS computes the number of tuned units to grasps or colors 
 
 %Data | size[number_trials,1]. Each cell contains a matrix of firing rate in 50ms time bins of the task x number of units
 %Labels | size[number_of_trials]. Contains label for each trial
 %TimePhaseLabels | labels of phase in 50ms time bins. 
 %flag50msTuning | true or false | defines if tuning in 50ms time bins is computed
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 graspNames = {'Lateral','WritingTripod','MediumWrap','PalmarPinch','Sphere3Finger'};
 
 %variables
-alpha = 0.05; %defines tuning
+alpha = 0.05; %threshold value for statistical significance 
 number_bins = size(Data{1},1);
 number_units = size(Data{1},2);
 number_grasps = length(graspNames);
 unique_phase_labels = unique(TimePhaseLabels{1});
-number_phases = unique_phase_labels(end); %number of phases in task
-fixed_trial_number = unique(histc(Labels, unique(Labels))); % the number of trials should be the same for all 
+number_phases = unique_phase_labels(end);
+fixed_trial_number = unique(histc(Labels, unique(Labels))); 
 
 condition_names = ['ITI',graspNames];
 condition = repmat(condition_names, [fixed_trial_number,1]);

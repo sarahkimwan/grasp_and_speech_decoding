@@ -1,6 +1,6 @@
 function [ class ] = image2class_simple( imagename )
 
-%returns the name of a grasp if provided a number, or the number of the
+%IMAGE2CLASS_SIMPLE returns the name of a grasp if provided a number, or the associated number of the
 %grasp if provided a name. 
 
 if ~isnumeric(imagename) 
